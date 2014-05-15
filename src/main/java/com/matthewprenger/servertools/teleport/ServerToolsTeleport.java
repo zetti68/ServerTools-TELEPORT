@@ -21,6 +21,7 @@ import com.matthewprenger.servertools.core.ServerTools;
 import com.matthewprenger.servertools.core.command.CommandManager;
 import com.matthewprenger.servertools.teleport.command.*;
 import cpw.mods.fml.common.Mod;
+import cpw.mods.fml.common.event.FMLFingerprintViolationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.event.FMLServerAboutToStartEvent;
 import cpw.mods.fml.common.event.FMLServerStartingEvent;
@@ -46,6 +47,14 @@ public class ServerToolsTeleport {
     private static final File serverToolsTeleportDir = new File(ServerTools.serverToolsDir, "teleport");
 
     public static final Logger log = LogManager.getLogger(Reference.MOD_ID);
+
+    @Mod.EventHandler
+    public void invalidCert(FMLFingerprintViolationEvent event) {
+
+        log.warn("Invalid ServerTools Teleport fingerprint detected: {}", event.fingerprints.toString());
+        log.warn("Expected: {}", event.expectedFingerprint);
+        log.warn("Unpredictable results my occur");
+    }
 
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent event) {
