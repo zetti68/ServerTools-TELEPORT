@@ -7,7 +7,7 @@ def versionBuild = 0
 
 def minecraftVersion = '1.7.2'
 def forgeVersion = '10.12.1.1082'
-def STCoreVersion = '2.0.1.21'
+def STCoreVersion = '2.0.1.24'
 
 /* Constantes End */
 
