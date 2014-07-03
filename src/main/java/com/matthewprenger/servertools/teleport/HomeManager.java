@@ -54,8 +54,7 @@ public class HomeManager {
                 try {
                     FileUtils.writeStringToFile(gsonRepresentation, new File(homeDir, username + ".json"));
                 } catch (IOException e) {
-                    ServerToolsTeleport.log.warn(String.format("Failed to save %s's homes to file", username));
-                    e.printStackTrace();
+                    ServerToolsTeleport.log.warn(String.format("Failed to save %s's homes to file", username), e);
                 }
             }
         }
@@ -125,14 +124,11 @@ public class HomeManager {
                     bufferedReader.close();
 
                 } catch (JsonParseException e) {
-                    e.printStackTrace();
-                    ServerToolsTeleport.log.warn(String.format("The home file for %s could not be parsed as json, it will not be loaded", username));
+                    ServerToolsTeleport.log.warn(String.format("The home file for %s could not be parsed as json, it will not be loaded", username), e);
                 } catch (FileNotFoundException e) {
-                    e.printStackTrace();
-                    ServerToolsTeleport.log.warn(String.format("Tried to load home file for %s, but it didn't exist", username));
+                    ServerToolsTeleport.log.warn(String.format("Tried to load home file for %s, but it didn't exist", username), e);
                 } catch (IOException e) {
-                    e.printStackTrace();
-                    ServerToolsTeleport.log.warn(String.format("Failed to close buffered reader stream for: %s", file.getAbsolutePath()));
+                    ServerToolsTeleport.log.warn(String.format("Failed to close buffered reader stream for: %s", file.getAbsolutePath()), e);
                 }
             }
         }

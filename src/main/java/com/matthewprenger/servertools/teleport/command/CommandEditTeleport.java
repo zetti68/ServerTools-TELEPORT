@@ -16,9 +16,10 @@
 
 package com.matthewprenger.servertools.teleport.command;
 
+import com.matthewprenger.servertools.core.command.CommandLevel;
 import com.matthewprenger.servertools.core.command.ServerToolsCommand;
-import com.matthewprenger.servertools.core.util.Util;
 import com.matthewprenger.servertools.core.util.Location;
+import com.matthewprenger.servertools.core.util.Util;
 import com.matthewprenger.servertools.teleport.TeleportManager;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.command.PlayerNotFoundException;
@@ -36,8 +37,8 @@ public class CommandEditTeleport extends ServerToolsCommand {
     }
 
     @Override
-    public int getRequiredPermissionLevel() {
-        return 2;
+    public CommandLevel getCommandLevel() {
+        return CommandLevel.OP;
     }
 
     @Override

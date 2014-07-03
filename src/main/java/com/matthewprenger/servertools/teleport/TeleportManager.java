@@ -77,8 +77,7 @@ public class TeleportManager {
         try {
             FileUtils.writeStringToFile(gson.toJson(teleportMap), teleportSaveFile);
         } catch (IOException e) {
-            e.printStackTrace();
-            ServerToolsTeleport.log.log(Level.WARN, "Failed to save teleport file");
+            ServerToolsTeleport.log.warn("Failed to save teleport file", e);
         }
     }
 
@@ -107,14 +106,11 @@ public class TeleportManager {
             bufferedReader.close();
 
         } catch (JsonParseException e) {
-            e.printStackTrace();
-            ServerToolsTeleport.log.log(Level.WARN, String.format("The teleport file %s could not be parsed as valid JSON, it will not be loaded", teleportSaveFile.getAbsolutePath()));
+            ServerToolsTeleport.log.warn(String.format("The teleport file %s could not be parsed as valid JSON, it will not be loaded", teleportSaveFile.getAbsolutePath()), e);
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
-            ServerToolsTeleport.log.log(Level.WARN, String.format("Tried to load non-existant file: %s", teleportSaveFile.getAbsolutePath()));
+            ServerToolsTeleport.log.warn(String.format("Tried to load non-existant file: %s", teleportSaveFile.getAbsolutePath()), e);
         } catch (IOException e) {
-            e.printStackTrace();
-            ServerToolsTeleport.log.log(Level.WARN, String.format("Failed to close buffered reader stream for: %s", teleportSaveFile.getAbsolutePath()));
+            ServerToolsTeleport.log.warn(String.format("Failed to close buffered reader stream for: %s", teleportSaveFile.getAbsolutePath()), e);
         }
     }
 }

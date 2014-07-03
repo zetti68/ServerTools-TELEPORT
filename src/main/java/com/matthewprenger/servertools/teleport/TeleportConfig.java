@@ -37,8 +37,7 @@ public class TeleportConfig {
             REQUIRE_OP_EDIT_TELEPORT = teleportConfig.get(Configuration.CATEGORY_GENERAL, "Require OP Edit Teleport", true, "Only server operators can edit teleports").getBoolean(true);
 
         } catch (Exception e) {
-            e.printStackTrace();
-            ServerToolsTeleport.log.log(Level.FATAL, "Failed to load Teleport config");
+            ServerToolsTeleport.log.fatal("Failed to load Teleport config", e);
         } finally {
             if (teleportConfig.hasChanged()) {
                 teleportConfig.save();

@@ -16,9 +16,10 @@
 
 package com.matthewprenger.servertools.teleport.command;
 
+import com.matthewprenger.servertools.core.command.CommandLevel;
 import com.matthewprenger.servertools.core.command.ServerToolsCommand;
-import com.matthewprenger.servertools.core.util.Util;
 import com.matthewprenger.servertools.core.util.Location;
+import com.matthewprenger.servertools.core.util.Util;
 import com.matthewprenger.servertools.teleport.TeleportConfig;
 import com.matthewprenger.servertools.teleport.TeleportManager;
 import net.minecraft.command.ICommandSender;
@@ -36,8 +37,8 @@ public class CommandTeleport extends ServerToolsCommand {
     }
 
     @Override
-    public int getRequiredPermissionLevel() {
-        return 0;
+    public CommandLevel getCommandLevel() {
+        return CommandLevel.ANYONE;
     }
 
     @Override
@@ -68,7 +69,7 @@ public class CommandTeleport extends ServerToolsCommand {
 
         if (teleport != null) {
 
-            TeleportManager.backMap.put(player.getGameProfile().getName() ,new Location(player.worldObj.provider.dimensionId, player.posX, player.posY, player.posZ));
+            TeleportManager.backMap.put(player.getGameProfile().getName(), new Location(player.worldObj.provider.dimensionId, player.posX, player.posY, player.posZ));
 
             if (teleport.dimID != player.worldObj.provider.dimensionId) {
                 if (!TeleportConfig.ENABLE_TELEPORT_ACROSS_DIMENSION) {

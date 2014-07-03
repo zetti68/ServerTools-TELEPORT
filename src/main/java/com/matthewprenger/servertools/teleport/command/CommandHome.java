@@ -16,10 +16,12 @@
 
 package com.matthewprenger.servertools.teleport.command;
 
+import com.matthewprenger.servertools.core.command.CommandLevel;
 import com.matthewprenger.servertools.core.command.ServerToolsCommand;
+import com.matthewprenger.servertools.core.lib.Strings;
+import com.matthewprenger.servertools.core.util.Location;
 import com.matthewprenger.servertools.core.util.Util;
 import com.matthewprenger.servertools.teleport.HomeManager;
-import com.matthewprenger.servertools.core.util.Location;
 import com.matthewprenger.servertools.teleport.TeleportManager;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.command.WrongUsageException;
@@ -34,14 +36,17 @@ public class CommandHome extends ServerToolsCommand {
     }
 
     @Override
-    public int getRequiredPermissionLevel() {
-        return 0;
+    public CommandLevel getCommandLevel() {
+        return CommandLevel.ANYONE;
     }
 
     @Override
     public void processCommand(ICommandSender sender, String[] args) {
 
-        EntityPlayerMP player = MinecraftServer.getServer().getConfigurationManager().getPlayerForUsername(sender.getCommandSenderName());
+        if (!(sender instanceof EntityPlayerMP))
+            throw new WrongUsageException(Strings.COMMAND_ERROR_ONLYPLAYER);
+
+        EntityPlayerMP player = MinecraftServer.getServer().getConfigurationManager().func_152612_a(sender.getCommandSenderName());
 
         if (args.length == 0) {
 
@@ -49,7 +54,7 @@ public class CommandHome extends ServerToolsCommand {
 
             if (home != null) {
 
-                TeleportManager.backMap.put(player.getGameProfile().getName() ,new Location(player.worldObj.provider.dimensionId, player.posX, player.posY, player.posZ));
+                TeleportManager.backMap.put(player.getGameProfile().getName(), new Location(player.worldObj.provider.dimensionId, player.posX, player.posY, player.posZ));
 
                 player.setPositionAndUpdate(home.x, home.y, home.z);
                 player.addChatMessage(Util.getChatComponent("Teleported Home", EnumChatFormatting.GREEN));

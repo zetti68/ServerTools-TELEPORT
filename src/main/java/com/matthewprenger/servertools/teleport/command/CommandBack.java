@@ -16,9 +16,10 @@
 
 package com.matthewprenger.servertools.teleport.command;
 
+import com.matthewprenger.servertools.core.command.CommandLevel;
 import com.matthewprenger.servertools.core.command.ServerToolsCommand;
-import com.matthewprenger.servertools.core.util.Util;
 import com.matthewprenger.servertools.core.util.Location;
+import com.matthewprenger.servertools.core.util.Util;
 import com.matthewprenger.servertools.teleport.TeleportManager;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.command.WrongUsageException;
@@ -33,8 +34,8 @@ public class CommandBack extends ServerToolsCommand {
     }
 
     @Override
-    public int getRequiredPermissionLevel() {
-        return 0;
+    public CommandLevel getCommandLevel() {
+        return CommandLevel.ANYONE;
     }
 
     @Override

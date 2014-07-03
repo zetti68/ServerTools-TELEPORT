@@ -16,6 +16,7 @@
 
 package com.matthewprenger.servertools.teleport.command;
 
+import com.matthewprenger.servertools.core.command.CommandLevel;
 import com.matthewprenger.servertools.core.command.ServerToolsCommand;
 import com.matthewprenger.servertools.core.util.Location;
 import com.matthewprenger.servertools.core.util.Util;
@@ -38,9 +39,8 @@ public class CommandTPDim extends ServerToolsCommand {
     }
 
     @Override
-    public int getRequiredPermissionLevel() {
-
-        return 2;
+    public CommandLevel getCommandLevel() {
+        return CommandLevel.ANYONE;
     }
 
     @Override
