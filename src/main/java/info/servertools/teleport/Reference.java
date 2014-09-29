@@ -1,5 +1,5 @@
 /*
- * Copyright 2014 Matthew Prenger
+ * Copyright 2014 ServerTools
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,12 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-package com.matthewprenger.servertools.teleport;
+package info.servertools.teleport;
 
 public class Reference {
 
-    public static final String MOD_ID = "ServerTools|Teleport";
+    public static final String MOD_ID = "ServerTools-TELEPORT";
     public static final String MOD_NAME = MOD_ID;
     public static final String DEPENDENCIES = "required-after:ServerTools";
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014 Matthew Prenger
+ * Copyright 2014 ServerTools
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,11 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package info.servertools.teleport;
 
-package com.matthewprenger.servertools.teleport;
-
-import com.matthewprenger.servertools.core.util.Location;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import info.servertools.core.util.Location;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.util.FakePlayer;
@@ -38,7 +37,7 @@ public class EventHandler {
             EntityPlayer player = (EntityPlayer) event.entity;
             Location location = new Location(player.worldObj.provider.dimensionId, player.posX, player.posY, player.posZ);
 
-            TeleportManager.backMap.put(player.getGameProfile().getName(), location);
+            TeleportManager.backMap.put(player.getGameProfile().getId(), location);
 
             ServerToolsTeleport.log.trace("Set back location for Player: {} to DIM:{}, X:{}, Y:{}, Z:{}", player.worldObj.provider.dimensionId, player.posX, player.posY, player.posZ);
         }

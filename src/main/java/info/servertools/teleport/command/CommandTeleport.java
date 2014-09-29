@@ -1,5 +1,5 @@
 /*
- * Copyright 2014 Matthew Prenger
+ * Copyright 2014 ServerTools
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,15 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package info.servertools.teleport.command;
 
-package com.matthewprenger.servertools.teleport.command;
-
-import com.matthewprenger.servertools.core.command.CommandLevel;
-import com.matthewprenger.servertools.core.command.ServerToolsCommand;
-import com.matthewprenger.servertools.core.util.Location;
-import com.matthewprenger.servertools.core.util.Util;
-import com.matthewprenger.servertools.teleport.TeleportConfig;
-import com.matthewprenger.servertools.teleport.TeleportManager;
+import info.servertools.teleport.TeleportConfig;
+import info.servertools.teleport.TeleportManager;
+import info.servertools.core.command.CommandLevel;
+import info.servertools.core.command.ServerToolsCommand;
+import info.servertools.core.util.ChatUtils;
+import info.servertools.core.util.Location;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.command.WrongUsageException;
 import net.minecraft.entity.player.EntityPlayer;
@@ -69,11 +68,11 @@ public class CommandTeleport extends ServerToolsCommand {
 
         if (teleport != null) {
 
-            TeleportManager.backMap.put(player.getGameProfile().getName(), new Location(player.worldObj.provider.dimensionId, player.posX, player.posY, player.posZ));
+            TeleportManager.backMap.put(player.getPersistentID(), new Location(player.worldObj.provider.dimensionId, player.posX, player.posY, player.posZ));
 
             if (teleport.dimID != player.worldObj.provider.dimensionId) {
                 if (!TeleportConfig.ENABLE_TELEPORT_ACROSS_DIMENSION) {
-                    icommandsender.addChatMessage(Util.getChatComponent("Teleporting across dimensions isn't allowed", EnumChatFormatting.RED));
+                    icommandsender.addChatMessage(ChatUtils.getChatComponent("Teleporting across dimensions isn't allowed", EnumChatFormatting.RED));
                     return;
                 }
 
@@ -81,10 +80,10 @@ public class CommandTeleport extends ServerToolsCommand {
             }
 
             player.setPositionAndUpdate(teleport.x, teleport.y, teleport.z);
-            icommandsender.addChatMessage(Util.getChatComponent(String.format("Teleported to: %s", astring[0]), EnumChatFormatting.GREEN));
+            icommandsender.addChatMessage(ChatUtils.getChatComponent(String.format("Teleported to: %s", astring[0]), EnumChatFormatting.GREEN));
 
         } else {
-            icommandsender.addChatMessage(Util.getChatComponent("That teleport doesn't exist", EnumChatFormatting.RED));
+            icommandsender.addChatMessage(ChatUtils.getChatComponent("That teleport doesn't exist", EnumChatFormatting.RED));
         }
     }
 }

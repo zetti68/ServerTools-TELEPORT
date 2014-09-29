@@ -1,5 +1,5 @@
 /*
- * Copyright 2014 Matthew Prenger
+ * Copyright 2014 ServerTools
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,14 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package info.servertools.teleport.command;
 
-package com.matthewprenger.servertools.teleport.command;
-
-import com.matthewprenger.servertools.core.command.CommandLevel;
-import com.matthewprenger.servertools.core.command.ServerToolsCommand;
-import com.matthewprenger.servertools.core.util.Location;
-import com.matthewprenger.servertools.core.util.Util;
-import com.matthewprenger.servertools.teleport.TeleportManager;
+import info.servertools.teleport.TeleportManager;
+import info.servertools.core.command.CommandLevel;
+import info.servertools.core.command.ServerToolsCommand;
+import info.servertools.core.util.ChatUtils;
+import info.servertools.core.util.Location;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.command.PlayerNotFoundException;
 import net.minecraft.command.WrongUsageException;
@@ -73,12 +72,12 @@ public class CommandEditTeleport extends ServerToolsCommand {
         if ("set".equalsIgnoreCase(astring[0])) {
 
             TeleportManager.setTeleport(astring[1], new Location(player.worldObj.provider.dimensionId, player.posX, player.posY, player.posZ));
-            icommandsender.addChatMessage(Util.getChatComponent(String.format("Set teleport: %s", astring[1]), EnumChatFormatting.GREEN));
+            icommandsender.addChatMessage(ChatUtils.getChatComponent(String.format("Set teleport: %s", astring[1]), EnumChatFormatting.GREEN));
 
         } else if ("delete".equalsIgnoreCase(astring[0])) {
 
             if (TeleportManager.removeTeleport(astring[1])) {
-                icommandsender.addChatMessage(Util.getChatComponent(String.format("Removed teleport: %s", astring[1]), EnumChatFormatting.GREEN));
+                icommandsender.addChatMessage(ChatUtils.getChatComponent(String.format("Removed teleport: %s", astring[1]), EnumChatFormatting.GREEN));
             } else
                 throw new PlayerNotFoundException("That teleport doesn't exist");
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014 Matthew Prenger
+ * Copyright 2014 ServerTools
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,16 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package info.servertools.teleport.command;
 
-package com.matthewprenger.servertools.teleport.command;
-
-import com.matthewprenger.servertools.core.command.CommandLevel;
-import com.matthewprenger.servertools.core.command.ServerToolsCommand;
-import com.matthewprenger.servertools.core.lib.Strings;
-import com.matthewprenger.servertools.core.util.Location;
-import com.matthewprenger.servertools.core.util.Util;
-import com.matthewprenger.servertools.teleport.HomeManager;
-import com.matthewprenger.servertools.teleport.TeleportManager;
+import info.servertools.core.command.CommandLevel;
+import info.servertools.core.command.ServerToolsCommand;
+import info.servertools.core.lib.Strings;
+import info.servertools.core.util.ChatUtils;
+import info.servertools.core.util.Location;
+import info.servertools.teleport.HomeManager;
+import info.servertools.teleport.TeleportManager;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.command.WrongUsageException;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -46,32 +45,24 @@ public class CommandHome extends ServerToolsCommand {
         if (!(sender instanceof EntityPlayerMP))
             throw new WrongUsageException(Strings.COMMAND_ERROR_ONLYPLAYER);
 
-        EntityPlayerMP player = MinecraftServer.getServer().getConfigurationManager().func_152612_a(sender.getCommandSenderName());
-
+        EntityPlayerMP player = MinecraftServer.getServer().getConfigurationManager().getPlayerByUsername(sender.getCommandSenderName());
         if (args.length == 0) {
-
-            Location home = HomeManager.getHome(player.getCommandSenderName(), player.worldObj.provider.dimensionId);
-
+            Location home = HomeManager.getHome(player.getPersistentID(), player.worldObj.provider.dimensionId);
             if (home != null) {
-
-                TeleportManager.backMap.put(player.getGameProfile().getName(), new Location(player.worldObj.provider.dimensionId, player.posX, player.posY, player.posZ));
-
+                TeleportManager.backMap.put(player.getPersistentID(), new Location(player.worldObj.provider.dimensionId, player.posX, player.posY, player.posZ));
                 player.setPositionAndUpdate(home.x, home.y, home.z);
-                player.addChatMessage(Util.getChatComponent("Teleported Home", EnumChatFormatting.GREEN));
+                player.addChatMessage(ChatUtils.getChatComponent("Teleported Home", EnumChatFormatting.GREEN));
             } else {
-                player.addChatMessage(Util.getChatComponent("Could not find your home", EnumChatFormatting.RED));
+                player.addChatMessage(ChatUtils.getChatComponent("Could not find your home", EnumChatFormatting.RED));
             }
         } else if ("set".equalsIgnoreCase(args[0])) {
-
-            HomeManager.setHome(player.getCommandSenderName(), player.worldObj.provider.dimensionId, player.posX, player.posY, player.posZ);
-            player.addChatMessage(Util.getChatComponent("Set your home", EnumChatFormatting.GREEN));
-
+            HomeManager.setHome(player.getPersistentID(), player.worldObj.provider.dimensionId, player.posX, player.posY, player.posZ);
+            player.addChatMessage(ChatUtils.getChatComponent("Set your home", EnumChatFormatting.GREEN));
         } else if ("clear".equalsIgnoreCase(args[0])) {
-
-            if (HomeManager.clearHome(player.getCommandSenderName(), player.worldObj.provider.dimensionId)) {
-                player.addChatMessage(Util.getChatComponent("Cleared your home", EnumChatFormatting.GREEN));
+            if (HomeManager.clearHome(player.getPersistentID(), player.worldObj.provider.dimensionId)) {
+                player.addChatMessage(ChatUtils.getChatComponent("Cleared your home", EnumChatFormatting.GREEN));
             } else {
-                player.addChatMessage(Util.getChatComponent("You don't have a home to clear!", EnumChatFormatting.RED));
+                player.addChatMessage(ChatUtils.getChatComponent("You don't have a home to clear!", EnumChatFormatting.RED));
             }
         } else
             throw new WrongUsageException(getCommandUsage(sender));

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014 Matthew Prenger
+ * Copyright 2014 ServerTools
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,13 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package info.servertools.teleport.command;
 
-package com.matthewprenger.servertools.teleport.command;
-
-import com.matthewprenger.servertools.core.command.CommandLevel;
-import com.matthewprenger.servertools.core.command.ServerToolsCommand;
-import com.matthewprenger.servertools.core.util.Location;
-import com.matthewprenger.servertools.core.util.Util;
+import info.servertools.core.command.CommandLevel;
+import info.servertools.core.command.ServerToolsCommand;
+import info.servertools.core.util.Location;
+import info.servertools.core.util.ServerUtils;
+import info.servertools.core.util.Util;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.command.PlayerNotFoundException;
 import net.minecraft.command.WrongUsageException;
@@ -89,7 +89,7 @@ public class CommandTPDim extends ServerToolsCommand {
         } else
             throw new WrongUsageException(getCommandUsage(sender));
 
-        Util.teleportPlayer(target, destination);
+        ServerUtils.teleportPlayer(target, destination);
         sender.addChatMessage(Util.getChatComponent(String.format("Teleported %s to %s %s %s in Dim %s",
                 target.getCommandSenderName(), destination.x, destination.y, destination.z, destination.dimID), EnumChatFormatting.GRAY));
     }
