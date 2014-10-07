@@ -20,4 +20,5 @@ public class Reference {
     public static final String MOD_ID = "ServerTools-TELEPORT";
     public static final String MOD_NAME = MOD_ID;
     public static final String DEPENDENCIES = "required-after:ServerTools";
+    public static final String FINGERPRINT = "@FINGERPRINT@";
 }

@@ -16,6 +16,7 @@
 package info.servertools.teleport;
 
 import cpw.mods.fml.common.Mod;
+import cpw.mods.fml.common.event.FMLFingerprintViolationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.event.FMLServerAboutToStartEvent;
 import cpw.mods.fml.common.event.FMLServerStartingEvent;
@@ -27,7 +28,7 @@ import org.apache.logging.log4j.Logger;
 
 import java.io.File;
 
-@Mod(modid = Reference.MOD_ID, name = Reference.MOD_NAME, dependencies = Reference.DEPENDENCIES, acceptableRemoteVersions = "*")
+@Mod(modid = Reference.MOD_ID, name = Reference.MOD_NAME, dependencies = Reference.DEPENDENCIES, acceptableRemoteVersions = "*", certificateFingerprint = Reference.FINGERPRINT)
 public class ServerToolsTeleport {
 
     public EventHandler eventHandler;
@@ -44,6 +45,22 @@ public class ServerToolsTeleport {
     public static final File serverToolsTeleportDir = new File(ServerTools.serverToolsDir, "teleport");
 
     public static final Logger log = LogManager.getLogger(Reference.MOD_ID);
+
+    @Mod.EventHandler
+    public void fingerprintViolation(FMLFingerprintViolationEvent event) {
+        log.warn("****************************************************");
+        log.warn("*     Invalid ST-TELEPORT Fingerprint Detected     *");
+        log.warn("****************************************************");
+        log.warn("* Expected: " + event.expectedFingerprint);
+        log.warn("****************************************************");
+        log.warn("* Received: ");
+        for (String fingerprint : event.fingerprints) {
+            log.warn("*   " + fingerprint);
+        }
+        log.warn("****************************************************");
+        log.warn("*Unpredictable results may occur, please relownload*");
+        log.warn("****************************************************");
+    }
 
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent event) {
