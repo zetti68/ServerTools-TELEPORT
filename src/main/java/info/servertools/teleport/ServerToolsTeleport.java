@@ -28,6 +28,8 @@ import org.apache.logging.log4j.Logger;
 
 import java.io.File;
 
+import static info.servertools.core.command.CommandManager.registerSTCommand;
+
 @Mod(modid = Reference.MOD_ID, name = Reference.MOD_NAME, dependencies = Reference.DEPENDENCIES, acceptableRemoteVersions = "*", certificateFingerprint = Reference.FINGERPRINT)
 public class ServerToolsTeleport {
 
@@ -38,6 +40,7 @@ public class ServerToolsTeleport {
     public CommandEditTeleport commandEditTeleport;
     public CommandBack commandBack;
     public CommandTPDim commandTPDim;
+    public CommandTeleportRequest commandTeleportRequest;
 
     @Mod.Instance
     public static ServerToolsTeleport instance;
@@ -75,12 +78,14 @@ public class ServerToolsTeleport {
         commandEditTeleport = new CommandEditTeleport("editteleport");
         commandBack = new CommandBack("back");
         commandTPDim = new CommandTPDim("tpdim");
+        commandTeleportRequest = new CommandTeleportRequest("tprequest");
 
-        CommandManager.registerSTCommand(commandHome);
-        CommandManager.registerSTCommand(commandTeleport);
-        CommandManager.registerSTCommand(commandEditTeleport);
-        CommandManager.registerSTCommand(commandBack);
-        CommandManager.registerSTCommand(commandTPDim);
+        registerSTCommand(commandHome);
+        registerSTCommand(commandTeleport);
+        registerSTCommand(commandEditTeleport);
+        registerSTCommand(commandBack);
+        registerSTCommand(commandTPDim);
+        registerSTCommand(commandTeleportRequest);
     }
 
     @Mod.EventHandler

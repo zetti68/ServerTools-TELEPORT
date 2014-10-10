@@ -71,7 +71,7 @@ public class CommandTeleport extends ServerToolsCommand {
             TeleportManager.backMap.put(player.getPersistentID(), new Location(player.worldObj.provider.dimensionId, player.posX, player.posY, player.posZ));
 
             if (teleport.dimID != player.worldObj.provider.dimensionId) {
-                if (!TeleportConfig.ENABLE_TELEPORT_ACROSS_DIMENSION) {
+                if (!TeleportConfig.interDimTeleporting) {
                     icommandsender.addChatMessage(ChatUtils.getChatComponent("Teleporting across dimensions isn't allowed", EnumChatFormatting.RED));
                     return;
                 }

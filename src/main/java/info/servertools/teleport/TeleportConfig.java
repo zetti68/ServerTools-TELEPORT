@@ -16,13 +16,15 @@
 package info.servertools.teleport;
 
 import net.minecraftforge.common.config.Configuration;
+import net.minecraftforge.common.config.Property;
 
 import java.io.File;
 
 public class TeleportConfig {
 
-    public static boolean ENABLE_TELEPORT_ACROSS_DIMENSION;
-    public static boolean REQUIRE_OP_EDIT_TELEPORT;
+    public static boolean interDimTeleporting = false;
+    public static boolean interDimTPRequest = false;
+    public static boolean requireOPEditTeleport = true;
 
     public static void init(File configFile) {
 
@@ -31,8 +33,19 @@ public class TeleportConfig {
         try {
             teleportConfig.load();
 
-            ENABLE_TELEPORT_ACROSS_DIMENSION = teleportConfig.get(Configuration.CATEGORY_GENERAL, "Enable Cross-Dimension Teleport", false, "Enables teleports to be available across dimensions").getBoolean(false);
-            REQUIRE_OP_EDIT_TELEPORT = teleportConfig.get(Configuration.CATEGORY_GENERAL, "Require OP Edit Teleport", true, "Only server operators can edit teleports").getBoolean(true);
+            Property prop;
+
+            prop = teleportConfig.get(Configuration.CATEGORY_GENERAL, "Enable Cross-Dimension Teleport", interDimTeleporting);
+            prop.comment = "Enables teleports to be available across dimensions";
+            interDimTeleporting = prop.getBoolean(interDimTeleporting);
+
+            prop = teleportConfig.get(Configuration.CATEGORY_GENERAL, "Enable Cross-Dimension Teleport Requests", interDimTPRequest);
+            prop.comment = "Enables players to request to teleport to another player across dimensions";
+            interDimTPRequest = prop.getBoolean(interDimTPRequest);
+
+            prop = teleportConfig.get(Configuration.CATEGORY_GENERAL, "Require OP Edit Teleport", requireOPEditTeleport);
+            prop.comment = "Only server operators can edit teleports";
+            requireOPEditTeleport = prop.getBoolean(requireOPEditTeleport);
 
         } catch (Exception e) {
             ServerToolsTeleport.log.fatal("Failed to load Teleport config", e);
