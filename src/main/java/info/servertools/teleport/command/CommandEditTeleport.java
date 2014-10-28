@@ -15,6 +15,7 @@
  */
 package info.servertools.teleport.command;
 
+import info.servertools.teleport.TeleportConfig;
 import info.servertools.teleport.TeleportManager;
 import info.servertools.core.command.CommandLevel;
 import info.servertools.core.command.ServerToolsCommand;
@@ -37,7 +38,7 @@ public class CommandEditTeleport extends ServerToolsCommand {
 
     @Override
     public CommandLevel getCommandLevel() {
-        return CommandLevel.OP;
+        return TeleportConfig.requireOPEditTeleport ? CommandLevel.OP : CommandLevel.ANYONE;
     }
 
     @Override
