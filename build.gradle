@@ -36,12 +36,6 @@ minecraft {
     version = minecraft_version + '-' + forge_version
     runDir = 'run'
     mappings = project.mappings
-
-    replaceIn 'info/servertools/teleport/Reference.java'
-
-    if (project.hasProperty('st_keystore_fingerprint')) {
-        replace '@FINGERPRINT@', project.st_keystore_fingerprint
-    }
 }
 
 processResources {
