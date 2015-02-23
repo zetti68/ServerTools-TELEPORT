@@ -17,6 +17,7 @@ package info.servertools.teleport.command;
 
 import info.servertools.core.command.CommandLevel;
 import info.servertools.core.command.ServerToolsCommand;
+import info.servertools.core.util.ChatUtils;
 import info.servertools.core.util.Location;
 import info.servertools.core.util.ServerUtils;
 import info.servertools.core.util.Util;
@@ -90,8 +91,8 @@ public class CommandTPDim extends ServerToolsCommand {
             throw new WrongUsageException(getCommandUsage(sender));
 
         ServerUtils.teleportPlayer(target, destination);
-        sender.addChatMessage(Util.getChatComponent(String.format("Teleported %s to %s %s %s in Dim %s",
-                target.getCommandSenderName(), destination.x, destination.y, destination.z, destination.dimID), EnumChatFormatting.GRAY));
+        sender.addChatMessage(ChatUtils.getChatComponent(String.format("Teleported %s to %s %s %s in Dim %s",
+                                                                       target.getCommandSenderName(), destination.x, destination.y, destination.z, destination.dimID), EnumChatFormatting.GRAY));
     }
 
     @Override
