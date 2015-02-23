@@ -92,7 +92,7 @@ public class CommandTeleportRequest extends ServerToolsCommand {
             case "-a":
             case "-accept":
                 if (requestMap.containsKey(senderPlayer.getPersistentID())) {
-                    EntityPlayerMP requestor = ServerUtils.getPlayerForUUID(requestMap.get(senderPlayer.getPersistentID()));
+                    EntityPlayerMP requestor = ServerUtils.getPlayerForUUID(requestMap.remove(senderPlayer.getPersistentID()));
                     if (requestor == null) throw new PlayerNotFoundException("Requesting player is no longer online");
                     teleportIfPossible(requestor, senderPlayer);
                     addChatMessage(senderPlayer, String.format("Teleporting %s to you", requestor.getDisplayName()));
